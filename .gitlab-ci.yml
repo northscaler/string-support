@@ -17,6 +17,8 @@ publish:
   stage: publish
   image: node:8-alpine
   script:
+    - node --version
+    - npm --version
     - *authenticate-to-npmjs
     - npm install
     - npm run make-distribution
