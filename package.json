@@ -20,8 +20,9 @@
   "scripts": {
     "build": "npm install && npm test",
     "transpile": "run-s transpile-main transpile-test",
-    "link-src": "rimraf lib/main && mkdirp lib/main && ln -s ../../src/main lib/main/src",
-    "pretranspile-main": "run-s link-src",
+    "clean": "rimraf lib/main",
+    "copy-src": "mkdirp lib/main/src && cp -r src/main/ lib/main/src",
+    "pretranspile-main": "run-s clean copy-src",
     "transpile-main": "babel --verbose --out-dir lib/main --copy-files lib/main/src",
     "transpile-test": "babel --delete-dir-on-start --verbose --out-dir lib/test --copy-files src/test",
     "unit-integration": "nyc --check-coverage -x 'lib/test' --exclude-after-remap false mocha 'lib/test/unit/**/*.spec.js' 'lib/test/integration/**/*.spec.js'",
