@@ -11,6 +11,8 @@ build:
   stage: build
   image: node:8-alpine
   script:
+    - node --version
+    - npm --version
     - npm run build
 
 publish:
