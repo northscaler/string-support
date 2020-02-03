@@ -21,6 +21,11 @@ publish:
     - npm install
     - npm run make-distribution
     - cd lib/main
-    - npm publish --access public
+    - export VERSION=$(node -e 'process.stdout.write(require("./package.json").version)')
+    - export MINOR_VERSION=$(echo -n $VERSION | egrep -o '^\d+\.\d+')
+    - export TAG=stable
+    - if [ -n "$(echo -n "$VERSION" | egrep -o '(pre|rc)')" ]; then export TAG=next; fi
+    - npm shrinkwrap
+    - npm publish --access public --tag $TAG-$MINOR_VERSION
   only:
     - /^([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}(-(pre|rc)\.[0-9]{1,})?)$/
