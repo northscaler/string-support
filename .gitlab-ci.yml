@@ -14,7 +14,7 @@ build:
     - node --version
     - npm --version
     - apk add git
-    - git branch -r
+    - git ls-remote origin
     - npm run build
 
 publish:
