@@ -18,6 +18,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
+    "posttranspile-main": "echo '!!!!!!!!!!!!! lib listing' && ls -lR lib",
     "build": "npm install && npm test",
     "transpile": "run-s transpile-main transpile-test",
     "clean": "rimraf lib/main",
