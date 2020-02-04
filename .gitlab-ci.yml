@@ -14,7 +14,7 @@ build:
     - node --version
     - npm --version
     - apk add git
-    - git ls-remote origin
+    - git ls-remote origin | grep refs/heads | egrep -o '/v\d+\.\d+$' | egrep -o '\d+\.\d+$'
     - npm run build
 
 publish:
@@ -26,10 +26,11 @@ publish:
     - *authenticate-to-npmjs
     - npm install
     - npm run make-distribution
+    - apk add git
     - cd lib/main
     - export VERSION=$(node -e 'process.stdout.write(require("./package.json").version)')
     - export MINOR_VERSION=$(echo -n $VERSION | egrep -o '^\d+\.\d+')
-    - export GREATEST_MINOR_VERSION="$(git branch -r | egrep -o '/v\d+\.\d+$' | egrep -o '\d+\.\d+$' | sort -t . -k 1,1n -k 2,2n | tail +1)"
+    - export GREATEST_MINOR_VERSION="$(git ls-remote origin | grep refs/heads | egrep -o '/v\d+\.\d+$' | egrep -o '\d+\.\d+$' | sort -t . -k 1,1n -k 2,2n | tail +1)"
     - export TAG=stable
     - if [ -n "$(echo -n "$VERSION" | egrep -o '\-(pre|rc)\.\d+')" ]; then export TAG=next; fi
     - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then export TAG=""; fi
