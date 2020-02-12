@@ -38,7 +38,7 @@ publish:
     - npm shrinkwrap
     - npm publish --access public --tag $TAG-$MINOR_VERSION
     - export PKG="$(node -e 'process.stdout.write(require("./package.json").name)')"
-    - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then npm dist-tag add $PKG@$VERSION latest # add latest tag if latest stable release
+    - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then npm dist-tag add $PKG@$VERSION latest; fi # add latest tag if latest stable release
     - if [ "$TAG" == "stable" ]; then npm dist-tag rm $PKG next-$MINOR_VERSION; fi # rm tag "next-x.y" during a stable release
   only:
     - /^([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}(-(pre|rc)\.[0-9]{1,})?)$/
