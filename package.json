@@ -41,8 +41,8 @@
     "make-distribution": "run-s transpile finalize-distribution",
     "finalize-distribution": "cp package.json package-lock.json README.md LICENSE lib/main",
     "prelink": "run-s make-distribution",
-    "link": "mkdir -p lib/main && cd lib/main && npm link; cd ../..",
-    "unlink": "mkdir -p lib/main && cd lib/main && npm unlink; cd ../.."
+    "link": "mkdirp lib/main && cd lib/main && npm link; cd ../..",
+    "unlink": "mkdirp lib/main && cd lib/main && npm unlink; cd ../.."
   },
   "publishConfig": {
     "access": "public"
