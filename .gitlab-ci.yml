@@ -34,11 +34,11 @@ publish:
     - echo "GREATEST_MINOR_VERSION=$GREATEST_MINOR_VERSION"
     - export TAG=stable
     - if [ -n "$(echo -n "$VERSION" | egrep -o '\-(pre|rc)\.\d+$')" ]; then export TAG=next; fi
-    - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then export TAG=''; fi # means "latest"
-    - if [ -n "$TAG" ]; then export TAG_ARG="--tag $TAG-$MINOR_VERSION"; fi
-    - if [ -z "$TAG" ]; then echo "TAG=latest"; else echo "TAG=$TAG"; fi
+    - echo "TAG=$TAG"
     - npm shrinkwrap
-    - npm publish --access public $TAG_ARG
-    - if [ "$TAG" == "stable" ] || [ -z "$TAG" ]; then npm dist-tag rm "$(node -e 'process.stdout.write(require("./package.json").name)')" next-$MINOR_VERSION; fi # rm tag "next-x.y" during a stable or latest release
+    - npm publish --access public --tag $TAG-$MINOR_VERSION
+    - export PKG="$(node -e 'process.stdout.write(require("./package.json").name)')"
+    - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then npm dist-tag add $PKG@$VERSION latest # add latest tag if latest stable release
+    - if [ "$TAG" == "stable" ]; then npm dist-tag rm $PKG next-$MINOR_VERSION; fi # rm tag "next-x.y" during a stable release
   only:
     - /^([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}(-(pre|rc)\.[0-9]{1,})?)$/
