@@ -28,7 +28,7 @@ publish:
     - cd lib/main
     - export VERSION=$(node -e 'process.stdout.write(require("./package.json").version)')
     - export MINOR_VERSION=$(echo -n $VERSION | egrep -o '^\d+\.\d+')
-    - export GREATEST_MINOR_VERSION="$(git ls-remote origin | grep refs/heads | egrep -o '/v\d+\.\d+$' | egrep -o '\d+\.\d+$' | sort -t . -k 1,1n -k 2,2n | tail +1)"
+    - export GREATEST_MINOR_VERSION="$(git ls-remote origin | grep refs/heads | egrep -o '/v\d+\.\d+$' | egrep -o '\d+\.\d+$' | sort -t . -k 1,1n -k 2,2n | tail -1)"
     - echo "VERSION=$VERSION"
     - echo "MINOR_VERSION=$MINOR_VERSION"
     - echo "GREATEST_MINOR_VERSION=$GREATEST_MINOR_VERSION"
