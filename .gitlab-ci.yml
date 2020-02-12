@@ -33,7 +33,7 @@ publish:
     - echo "MINOR_VERSION=$MINOR_VERSION"
     - echo "GREATEST_MINOR_VERSION=$GREATEST_MINOR_VERSION"
     - export TAG=stable
-    - if [ -n "$(echo -n "$VERSION" | egrep -o '\-(pre|rc)\.\d+$')" ]; then export TAG=next; fi
+    - if echo -n "$VERSION" | egrep -q '\-[^\.]+\.\d+$'; then export TAG=next; fi # if a prerelease
     - echo "TAG=$TAG"
     - npm shrinkwrap
     - npm publish --access public --tag $TAG-$MINOR_VERSION
@@ -41,4 +41,4 @@ publish:
     - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then npm dist-tag add $PKG@$VERSION latest; fi # add latest tag if latest stable release
     - if [ "$TAG" == "stable" ] && npm dist-tag ls | egrep -q "^next-$MINOR_VERSION:"; then npm dist-tag rm $PKG next-$MINOR_VERSION; fi # rm tag "next-x.y" during a stable release if present
   only:
-    - /^([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}(-(pre|rc)\.[0-9]{1,})?)$/
+    - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
