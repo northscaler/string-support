@@ -33,7 +33,7 @@ publish:
     - echo "MINOR_VERSION=$MINOR_VERSION"
     - echo "GREATEST_MINOR_VERSION=$GREATEST_MINOR_VERSION"
     - export TAG=stable
-    - if [ -n "$(echo -n "$VERSION" | egrep -o '\-(pre|rc)\.\d+$')" ]; then export TAG=next; fi
+    - if echo -n "$VERSION" | egrep -q '\-[^\.]+\.\d+$'; then export TAG=next; fi # if a prerelease
     - echo "TAG=$TAG"
     - npm shrinkwrap
     - npm publish --access public --tag $TAG-$MINOR_VERSION
