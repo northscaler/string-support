@@ -27,7 +27,7 @@ publish:
     - apk add git # TODO: use an image that already has git
     - cd lib/main
     - npm shrinkwrap
-    - export RM_TMP_TAG=$(date +%s)
+    - export RM_TMP_TAG=cicd-$(date +%s)
     - npm publish --access public --tag $RM_TMP_TAG
     - ./tag-nodejs
   only:
