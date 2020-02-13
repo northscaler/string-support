@@ -3,42 +3,34 @@
     echo "$NPM_SCOPE:registry=https://$NPM_REGISTRY_HOST/" >> ~/.npmrc
     echo "//$NPM_REGISTRY_HOST/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 
+image: node:8-alpine
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - node --version
+  - npm --version
+
 stages:
   - build
   - publish
 
 build:
   stage: build
-  image: node:8-alpine
   script:
-    - node --version
-    - npm --version
     - npm run build
 
 publish:
   stage: publish
-  image: node:8-alpine
   script:
-    - node --version
-    - npm --version
     - *authenticate-to-npmjs
-    - npm install
     - npm run make-distribution
-    - apk add git # TODO: use an image that already has git
     - cd lib/main
-    - export VERSION=$(node -e 'process.stdout.write(require("./package.json").version)')
-    - export MINOR_VERSION=$(echo -n $VERSION | egrep -o '^\d+\.\d+')
-    - export GREATEST_MINOR_VERSION="$(git ls-remote origin | grep refs/heads | egrep -o '/v\d+\.\d+$' | egrep -o '\d+\.\d+$' | sort -t . -k 1,1n -k 2,2n | tail -1)"
-    - echo "VERSION=$VERSION"
-    - echo "MINOR_VERSION=$MINOR_VERSION"
-    - echo "GREATEST_MINOR_VERSION=$GREATEST_MINOR_VERSION"
-    - export TAG=stable
-    - if echo -n "$VERSION" | egrep -q '\-[^\.]+\.\d+$'; then export TAG=next; fi # if a prerelease
-    - echo "TAG=$TAG"
     - npm shrinkwrap
-    - npm publish --access public --tag $TAG-$MINOR_VERSION
-    - export PKG="$(node -e 'process.stdout.write(require("./package.json").name)')"
-    - if [ "$TAG" == "stable" ] && [ "$MINOR_VERSION" == "$GREATEST_MINOR_VERSION" ]; then npm dist-tag add $PKG@$VERSION latest; fi # add latest tag if latest stable release
-    - if [ "$TAG" == "stable" ] && npm dist-tag ls | egrep -q "^next-$MINOR_VERSION:"; then npm dist-tag rm $PKG next-$MINOR_VERSION; fi # rm tag "next-x.y" during a stable release if present
+    - export RM_TMP_TAG=cicd-$(date +%s)
+    - npm publish --access public --tag $RM_TMP_TAG
+    - ../../tag-nodejs
   only:
     - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
