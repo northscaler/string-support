@@ -54,11 +54,6 @@ $CMD
 if [ "$RM_TAG_PREFIX" == "$RM_STABLE" ]; then # this is a stable release
   RM_VERSIONS="$RM_GREATEST_MINOR_STABLE_VERSION.0 $RM_PKG_MINOR_VERSION.0"
   if [ "$RM_VERSIONS" == "$(npx -q semver $RM_VERSIONS | tr '\n' ' ' | xargs)" ]; then # we've published the latest version
-    if npm dist-tag ls | egrep -q "^$RM_LATEST:"; then # rm "latest" tag if present
-      CMD="npm dist-tag rm $RM_PKG_NAME $RM_LATEST"
-      echo "$CMD"
-      $CMD
-    fi
     CMD="npm dist-tag add $RM_PKG_NAME@$RM_PKG_VERSION $RM_LATEST" # now add "latest" tag
     echo "$CMD"
     $CMD
