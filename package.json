@@ -38,8 +38,9 @@
     "cov": "open coverage/index.html",
     "lint": "standard --verbose 'src/**/*.js'",
     "format": "standard --fix 'src/**/*.js'",
-    "make-distribution": "run-s transpile finalize-distribution",
+    "make-distribution": "run-s transpile finalize-distribution doc",
     "finalize-distribution": "cp package.json package-lock.json README.md LICENSE lib/main",
+    "doc": "jsdoc --verbose -d lib/main/doc -r -c jsdoc.json -R lib/main/README.md lib/main",
     "prelink": "run-s make-distribution",
     "link": "mkdirp lib/main && cd lib/main && npm link; cd ../..",
     "unlink": "mkdirp lib/main && cd lib/main && npm unlink; cd ../.."
@@ -61,6 +62,7 @@
     "babel-eslint": "10.0.3",
     "chai": "4.2.0",
     "dirty-chai": "2.0.1",
+    "jsdoc": "3.6.3",
     "mocha": "6.2.2",
     "npm-cli-login": "0.1.1",
     "npm-run-all": "4.1.5",
