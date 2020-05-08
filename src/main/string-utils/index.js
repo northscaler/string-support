@@ -6,6 +6,7 @@
  * @param {string} [camel] The camel cased string to convert.
  * @param {boolean} [upper=false] Whether to convert to upper case.
  * @return {string|*} If `camel` is falsey, returns `camel` unchanged, else returns the conversion.
+ * @deprecated See https://lodash.com/docs#snakeCase
  */
 const toSnake = (camel, upper = false) => {
   if (!camel) return camel
@@ -23,6 +24,7 @@ const toSnake = (camel, upper = false) => {
  *
  * @param {string} [camel] The camel cased string to convert.
  * @return {string|*} If `camel` is falsey, returns `camel` unchanged, else returns the conversion.
+ * @deprecated See https://lodash.com/docs#snakeCase
  */
 const toUpperSnake = camel => toSnake(camel, true)
 
@@ -31,6 +33,7 @@ const toUpperSnake = camel => toSnake(camel, true)
  *
  * @param {string} [camel] The camel cased string to convert.
  * @return {string|*} If `camel` is falsey, returns `camel` unchanged, else returns the conversion.
+ * @deprecated See https://lodash.com/docs#snakeCase
  */
 const toLowerSnake = camel => toSnake(camel)
 
@@ -40,6 +43,7 @@ const toLowerSnake = camel => toSnake(camel)
  * @param {string} [snake] The snake string to convert.
  * @param {boolean} [upper=false] Whether to upper case the leading character.
  * @return {string|*} If `snake` is falsey, returns `snake` unchanged, else returns the conversion.
+ * @deprecated See https://lodash.com/docs#camelCase
  */
 const toCamel = (snake, upper = true) => {
   if (!snake) return snake
@@ -66,6 +70,7 @@ const toCamel = (snake, upper = true) => {
  *
  * @param {string} [snake] The snake string to convert.
  * @return {string|*} If `snake` is falsey, returns `snake` unchanged, else returns the conversion.
+ * @deprecated See https://lodash.com/docs#camelCase
  */
 const toUpperCamel = snake => toCamel(snake)
 
@@ -74,6 +79,7 @@ const toUpperCamel = snake => toCamel(snake)
  *
  * @param {string} [snake] The snake string to convert.
  * @return {string|*} If `snake` is falsey, returns `snake` unchanged, else returns the conversion.
+ * @deprecated See https://lodash.com/docs#camelCase
  */
 const toLowerCamel = snake => toCamel(snake, false)
 

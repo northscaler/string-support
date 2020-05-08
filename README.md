@@ -2,6 +2,8 @@
 This package contains various string utilities.
 
 ## Snake & Camel Case Conversions
+> NOTE: These string utilities are deprecated in favor of lodash's [methods](https://lodash.com/docs/4.17.15#snakeCase) that [similar](https://lodash.com/docs/4.17.15#camelCase) functionality.
+> These will no longer be maintained and users are encouraged to port to the aaforelinked lodash methods.
 
 ### Camel case to snake
 * `toSnake(camel, upper = false)`: converts camel case to snake, lower case by default
