@@ -28,6 +28,7 @@ publish:
     - *authenticate-to-npmjs
     - npm run make-distribution
     - cd lib/main
+    - npm prune
     - npm shrinkwrap
     - export RM_TMP_TAG=cicd-$(date +%s)
     - npm publish --access public --tag $RM_TMP_TAG
