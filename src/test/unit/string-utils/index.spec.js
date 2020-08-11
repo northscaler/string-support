@@ -5,7 +5,7 @@ const chai = require('chai')
 chai.use(require('dirty-chai'))
 const expect = chai.expect
 
-const { toSnake, toUpperSnake, toLowerSnake, toCamel, toUpperCamel, toLowerCamel } = require('../../../main/string-utils')
+const { toSnake, toUpperSnake, toLowerSnake, toCamel, toUpperCamel, toLowerCamel } = require('../../../main')
 
 describe('unit tests of string-utils', function () {
   it('should convert camel case to snake', () => {
