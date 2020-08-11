@@ -29,7 +29,7 @@ publish:
     - npm run make-distribution
     - cd lib/main
     - npm prune --production
-    - npm shrinkwrap --only=prod
+    - npm shrinkwrap
     - export RM_TMP_TAG=cicd-$(date +%s)
     - npm publish --access public --tag $RM_TMP_TAG
     - ../../tag-nodejs
