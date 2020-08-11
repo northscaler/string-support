@@ -1,6 +1,6 @@
 {
   "name": "@northscaler/string-support",
-  "version": "3.1.14-rc.0",
+  "version": "3.1.14",
   "description": "Convenient string utilities",
   "repository": {
     "type": "git",
