@@ -4,7 +4,7 @@
   "description": "Convenient string utilities",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/northscaler-public/string-support.git"
+    "url": "https://github.com/northscaler/string-support"
   },
   "keywords": [
     "string",
