@@ -16,11 +16,11 @@ jobs:
         node: [ 16.20.2, 18.18.0 ]
         scope: [ '@northscaler' ]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           always-auth: true
           node-version: ${{ matrix.node }}
